@@ -532,10 +532,7 @@ nav {
 }
 
 .metodo-grid {
-  display: grid;
-  grid-template-columns: 55fr 45fr;
-  gap: 80px;
-  align-items: start;
+  max-width: 760px;
 }
 
 .metodo-left h2 {
@@ -1210,8 +1207,42 @@ footer {
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
+/* Indicações list */
+.indicacoes-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--div);
+  border: 1px solid var(--div);
+}
+
+.indicacao-item {
+  background: var(--surface);
+  padding: 28px 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: background .3s var(--ease);
+}
+
+.indicacao-item:hover { background: var(--surface2); }
+
+.indicacao-bullet {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--bronze);
+  margin-top: 9px;
+}
+
+.indicacao-item p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
 @media (max-width: 1024px) {
-  .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+  .indicacoes-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -1428,75 +1459,79 @@ footer {
 <section id="indicacoes">
   <div class="container">
     <div class="section-header fade-up">
-      <span class="eyebrow">Condições tratadas</span>
       <h2>Principais Indicações</h2>
-      <p>A hipnose médica trata uma ampla gama de condições físicas e psíquicas com base científica comprovada.</p>
     </div>
 
-    <div class="conditions-grid fade-up">
+    <div class="indicacoes-list fade-up">
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><path d="M9.5 2C6.47 2 4 4.47 4 7.5c0 2.24 1.36 4.17 3.33 5.01.4.16.67.56.67.99V18h4v-4.5c0-.43.27-.83.67-.99C14.64 11.67 16 9.74 16 7.5 16 4.47 13.53 2 10.5 2H9.5z"/><path d="M12 18v2a2 2 0 01-4 0v-2"/></svg>
-        </div>
-        <h4>Ansiedade e Pânico</h4>
-        <p>TAG, transtorno de pânico, agorafobia, ansiedade social e fobias específicas.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Transtornos de Ansiedade (ex.: transtorno de ansiedade generalizada – TAG, transtorno de pânico, agorafobia, ansiedade social, fobias específicas, etc.);</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="7"/><path d="M12 5v14M5 12h14"/></svg>
-        </div>
-        <h4>Problemas Digestivos</h4>
-        <p>Gastrites, refluxo gastroesofágico, síndrome do intestino irritável, constipação crônica.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Problemas digestivos (ex.: gastrites, refluxo gastro-esofágico, síndrome do intestino irritável, constipação crônica, etc.);</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5c0 2.76-2.24 5-5 5S7 9.76 7 7a5 5 0 015-5z"/><path d="M4 22c0-4.42 3.58-8 8-8s8 3.58 8 8"/><path d="M18 11l2 2-4 4"/></svg>
-        </div>
-        <h4>Controle de Peso</h4>
-        <p>Sobrepeso, obesidade, compulsão alimentar e bulimia.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Emagrecimento em casos de Sobrepeso e Obesidade;</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <h4>Dor Crônica</h4>
-        <p>Dores lombares crônicas, fibromialgia e condições psicossomáticas.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Transtornos alimentares (ex.: compulsão alimentar e bulimia);</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        </div>
-        <h4>Depressão</h4>
-        <p>Episódios depressivos, distimia, transtorno misto de ansiedade e depressão.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Dor crônica (ex.: dores lombares crônicas, fibromialgia, etc.)</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        </div>
-        <h4>Comportamentos</h4>
-        <p>Impulsividade, ciúme patológico e padrões relacionais disfuncionais.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Transtornos depressivos (ex.: episódios depressivos, transtorno depressivo maior, distimia, transtorno misto de ansiedade e depressão);</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94"/></svg>
-        </div>
-        <h4>Sono e Sexualidade</h4>
-        <p>Insônia, transtornos do sono, disfunção erétil, vaginismo, ejaculação precoce.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Problemas ligados a hábitos e comportamentos disfuncionais como o excesso de impulsividade, ciúme patológico, envolvimento reiterado em relacionamentos tóxicos, etc.</p>
       </div>
 
-      <div class="condition-card">
-        <div class="cond-icon">
-          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <h4>Estresse e Trauma</h4>
-        <p>Estresse agudo ou crônico, PTSD, preparo pré-operatório e pós-operatório.</p>
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Auxílio no tratamento de certas condições psiquiátricas;</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Condições ligadas ao estresse agudo ou crônico (Estresse pós-traumático);</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Insônia e outros Transtornos do sono;</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Problemas sexuais (ex.: disfunção erétil, ejaculação precoce, vaginismo, problemas ligados ao orgasmo ou prazer sexual);</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Transtornos psicossomáticos (manifestações físicas de problemas emocionais);</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Preparo pré-operatório e aceleração da recuperação no pós-operatório;</p>
+      </div>
+
+      <div class="indicacao-item">
+        <span class="indicacao-bullet"></span>
+        <p>Entre inúmeras outras aplicações incluindo problemas ligados a adaptação em ambiente social ou familiar, e aumento da performance em atividades profissionais ou esportivas com base na busca de seus objetivos pessoais.</p>
       </div>
 
     </div>
@@ -1517,27 +1552,8 @@ footer {
           A hipnoterapia é um tratamento baseado em toda a sua bagagem de vida (seu passado e seu presente), e direcionado para o futuro. Uma abordagem centrada na pessoa onde objetivos predeterminados serão trabalhados para serem alcançados ao longo do processo.
         </p>
         <p>
-          A hipnose é uma ferramenta muito poderosa capaz de conduzir sua capacidade cognitiva no sentido de reorganização mental e encontro de soluções para conflitos que envolvam tanto questões conscientes como subconscientes. Para muitos esta é uma experiência não só terapêutica como transformadora.
+          A hipnose é uma ferramenta muito poderosa capaz de conduzir sua capacidade cognitiva no sentindo de reorganização mental e encontro de soluções para conflitos que envolvam tanto questões conscientes como subconscientes. Para muitos esta é uma experiência não só terapêutica como transformadora.
         </p>
-        <a href="https://wa.me/5565996491721?text=Olá%2C%20gostaria%20de%20agendar%20uma%20avaliação." target="_blank" class="btn-text">
-          Agende sua avaliação
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-
-      <div class="feature-list">
-        <div class="feature-item">
-          <h4>Baseado em Evidências</h4>
-          <p>Ferramenta usada na Medicina há mais de 150 anos, com ampla base científica e validação clínica internacional.</p>
-        </div>
-        <div class="feature-item">
-          <h4>Centrado na Pessoa</h4>
-          <p>Objetivos predeterminados trabalhados individualmente para cada paciente, respeitando sua história e singularidade.</p>
-        </div>
-        <div class="feature-item">
-          <h4>Transformador</h4>
-          <p>Uma experiência que vai além do terapêutico — promove autoconhecimento real e mudanças duradouras de perspectiva.</p>
-        </div>
       </div>
 
     </div>
@@ -1565,15 +1581,11 @@ footer {
         <h2>Dr. Alberto Bicudo-Salomão</h2>
 
         <p>
-          Sou Médico (CRM-MT 3841), formado no ano de 2001, especialista em Cirurgia Geral e Gastroenterológica (RQE 2347 e RQE 1356), Hipniatra, com Mestrado e Doutorado em Ciências da Saúde. Professor de Medicina na UFMT e UNIC, e da pós-graduação em Hipnoterapia Profissional da OMNI Brasil.
+          Sou Médico (CRM-MT 3841), formado no ano de 2001, especialista em Cirurgia Geral e Gastroenterológica (RQE 2347 e RQE 1356), Hipniatra, com Mestrado e Doutorado em Ciências da Saúde. Professor de Medicina (UFMT/UNIC) e da pós-graduação em Hipnoterapia Profissional da OMNI Brasil.
         </p>
 
         <p>
-          Buscando alternativas para acelerar a recuperação dos pacientes cirúrgicos, fui um dos autores do Projeto ACERTO em 2005 — um protocolo multimodal de reabilitação pós-operatória que revolucionou a cirurgia brasileira, e cujas publicações científicas somam mais de 542 citações internacionais.
-        </p>
-
-        <p>
-          Paralelamente, busquei na Hipnose Médica uma ferramenta capaz de integrar o tratamento da mente e do corpo. Hoje atendo exclusivamente com hipnoterapia, sendo uma das referências mais importantes dessa área no Brasil, especialmente em Cuiabá-MT.
+          Buscando alternativas para acelerar a recuperação dos pacientes cirúrgicos, fui um dos autores do Projeto ACERTO (2005), escrevendo inúmeras publicações, incluindo um livro que se tornou referência para Médicos e Profissionais de Saúde do Brasil e de toda a América Latina. Após término do meu doutorado passei a me interessar pelas doenças relacionadas às interações entre mente e corpo. Em 2014 conheci as aplicações da Hipnose Clínica no tratamento de problemas digestivos com médicos do The Mount Sinai Hospital em Nova York EUA. Realizei diversas formações em Hipnoterapia e Mindfulness (atenção plena), dentro e fora do Brasil. Durante todos estes anos mantive uma sólida carreira no ensino. Há mais de 15 anos leciono no curso de Medicina (Universidade Federal do Mato Grosso e Universidade de Cuiabá) e atualmente, coordeno a disciplina Hipnose e Ciência na pós-graduação em Hipnoterapia Profissional (MBA), da Omni Hypnosis Training Center Brasil, uma das mais tradicionais e importantes escolas de Hipnoterapia do mundo.
         </p>
 
         <div class="badge-row">
@@ -1632,7 +1644,7 @@ footer {
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <h3>Resultado Rápido</h3>
-        <p>Com a Hipnoterapia é possível atingir resultados que muitas vezes poderiam levar anos em terapias convencionais. O trabalho direto com o subconsciente acelera o processo de mudança.</p>
+        <p>Com a Hipnoterapia é possível atingir resultados que muitas vezes poderiam levar anos em terapias convencionais.</p>
       </div>
 
       <div class="porque-card">
@@ -1641,7 +1653,7 @@ footer {
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
         </div>
         <h3>Foco na Causa</h3>
-        <p>Muitos tratamentos propiciam apenas o controle de sintomas. Na Hipnoterapia buscamos a origem do problema — o evento, a crença ou o padrão que está na raiz do sofrimento.</p>
+        <p>Muitos tratamentos propiciam apenas o controle de sintomas. Na Hipnoterapia buscamos a origem do problema. A partir deste entendimento poderemos chegar a resultados mais duradouros.</p>
       </div>
 
       <div class="porque-card">
@@ -1649,8 +1661,8 @@ footer {
         <div class="porque-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <h3>Resultados Comprovados</h3>
-        <p>Há uma ampla evidência científica que dá suporte para o uso da hipnose. Esta ferramenta é usada na Medicina há mais de 150 anos, com aplicações validadas em diversas áreas clínicas.</p>
+        <h3>Resultado Comprovados</h3>
+        <p>Há uma ampla evidência científica que dá suporte para o uso da hipnose em diferentes situações clínicas. Esta ferramenta é usada na Medicina há mais de 150 anos. Grandes Hospitais e Serviços Médicos de todo o mundo utilizam a Hipnoterapia.</p>
       </div>
 
       <div class="porque-card">
@@ -1659,7 +1671,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg>
         </div>
         <h3>Autoconhecimento</h3>
-        <p>A Hipnoterapia possibilita que vários aspectos de sua vida possam ser revistos sob uma nova perspectiva, tornando-a uma potente ferramenta de autoconhecimento e crescimento pessoal.</p>
+        <p>A Hipnoterapia possibilita que vários aspectos de sua vida possam ser revistos sob uma nova perspectiva. Isso a transforma em uma potente ferramenta de autoconhecimento. Com essa habilidade você toma o controle, entende os seus limites e se blinda aos novos desafios da vida.</p>
       </div>
 
     </div>
@@ -1676,36 +1688,8 @@ footer {
       <h2>Confira vidas impactadas com a Hipnoterapia</h2>
     </div>
 
-    <div class="testimonials-grid fade-up">
-
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="testimonial-text">"O Dr. Alberto transformou minha vida. Tratei minha ansiedade em poucos meses, algo que eu carregava há anos sem conseguir resolver."</p>
-        <span class="testimonial-author">Paciente — Ansiedade e Pânico</span>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="testimonial-text">"Sofria com insônia crônica há mais de 10 anos. Após o processo com hipnose, pela primeira vez durmo profundamente todas as noites."</p>
-        <span class="testimonial-author">Paciente — Transtorno do Sono</span>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="testimonial-text">"Além de médico, o Dr. Alberto tem uma escuta diferenciada. O tratamento foi muito além do que eu esperava — foi uma experiência transformadora."</p>
-        <span class="testimonial-author">Paciente — Depressão</span>
-      </div>
-
-    </div>
-
-    <div class="google-embed-placeholder">
-      <span>[ Código embed das avaliações do Google será inserido aqui ]</span>
+    <div class="google-embed-placeholder fade-up">
+      <span>[ Inserir código embedado das avaliações do google ]</span>
     </div>
 
   </div>
@@ -1727,7 +1711,7 @@ footer {
         <div class="step-content">
           <div class="step-num">01</div>
           <h3>Agende sua Avaliação</h3>
-          <p>Entre em contato pelo WhatsApp para agendar a sua avaliação. O primeiro passo para a transformação começa com uma simples mensagem.</p>
+          <p>Entre em contato pelo WhatsApp para agendar a sua avaliação.</p>
         </div>
         <div class="step-spacer"></div>
         <div class="timeline-dot"></div>
@@ -1738,7 +1722,7 @@ footer {
         <div class="step-content">
           <div class="step-num">02</div>
           <h3>Avaliação</h3>
-          <p>Esse primeiro encontro leva em torno de 1h30. Aqui vamos conversar sobre toda sua vida e suas maiores queixas. Preciso entender o todo para direcionar a melhor técnica para o seu caso e definir a duração do seu tratamento com hipnose.</p>
+          <p>Esse primeiro encontro leva em torno de 1:30h. Aqui vamos conversar sobre toda sua vida e suas maiores queixas, preciso entender o todo para direcionar a melhor técnica para o seu caso e definir a duração de seu tratamento com hipnose.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -1747,7 +1731,7 @@ footer {
         <div class="step-content">
           <div class="step-num">03</div>
           <h3>Encontros Programados</h3>
-          <p>Com a duração de tratamento prevista e objetivos esclarecidos, vamos programar a frequência dos nossos encontros para que você alcance seus objetivos da forma mais eficiente possível.</p>
+          <p>Com a duração de tratamento prevista e objetivos esclarecidos, vamos programar a frequência dos nossos encontros.</p>
         </div>
         <div class="step-spacer"></div>
         <div class="timeline-dot"></div>
@@ -1758,7 +1742,7 @@ footer {
         <div class="step-content">
           <div class="step-num">04</div>
           <h3>Compromisso</h3>
-          <p>A terapia vai muito além dos nossos encontros. Estaremos em contato direto pelo WhatsApp durante todo o nosso tratamento, garantindo suporte contínuo e acompanhamento real do seu progresso.</p>
+          <p>A terapia vai muito além dos nossos encontros. Estaremos em contato direto pelo WhatsApp durante todo o nosso tratamento</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -1785,7 +1769,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer open">
-          <p>Não existe nenhum risco em ser hipnotizado(a). A hipnose é um estado natural do ser humano — todos nós entramos em transe hipnótico naturalmente várias vezes ao dia (como quando estamos absortos em um livro ou em pensamento). Na Hipnose Médica, esse estado é induzido de forma controlada, segura e com objetivos terapêuticos claros. Jamais é possível "forçar" alguém a fazer algo contra sua vontade durante a hipnose.</p>
+          <p>Segundo o Conselho Federal de Medicina (Parecer CFM nº 42/1999), a Hipnose é uma "valiosa prática médica, subsidiária de diagnóstico ou de tratamento, devendo ser exercida por profissionais devidamente qualificados e sob rigorosos critérios éticos". Quando exercida por profissionais com este nível de formação é praticamente isenta de riscos, desde que se respeitem as suas indicações e contraindicações com qualquer tipo de tratamento.</p>
         </div>
       </div>
 
@@ -1795,7 +1779,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Não. Durante a hipnose você permanece completamente consciente e ciente do que está acontecendo ao seu redor. A hipnose é um estado de foco e atenção ampliados, não de inconsciência. Você ouve tudo, compreende tudo e pode interromper o processo a qualquer momento se desejar.</p>
+          <p>Hipnose é um estado ou comportamento totalmente CONSCIENTE. Durante todo o processo você estará em pleno controle em relação a você mesmo. Não há qualquer perda de consciência. Sob hipnose a pessoa apenas faz, fala ou pensa o que quiser.</p>
         </div>
       </div>
 
@@ -1805,7 +1789,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Não necessariamente. Muitas pessoas confundem o estado hipnótico com o sono, mas são estados completamente diferentes. Na hipnose, a atividade cerebral é diferente do sono. Você pode sentir um relaxamento profundo, mas sua mente permanece ativa, receptiva e focada no trabalho terapêutico.</p>
+          <p>Muitas vezes usamos como um modo de induzir a hipnose a palavra "durma". Mas definitivamente esta sugestão não faz a pessoa literalmente dormir. É apenas um modo de direcionar a mente para que ocorra um intenso relaxamento do corpo e para que feche os olhos, pois é justamente isso que fazemos quando dormimos. Porém, com os olhos fechados e corpo relaxado a pessoa se mantém totalmente consciente a atenta a absolutamente tudo que está acontecendo a sua volta.</p>
         </div>
       </div>
 
@@ -1815,7 +1799,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Na grande maioria dos casos, não. A maioria das pessoas se lembra claramente de tudo o que foi trabalhado durante a sessão. Em alguns protocolos específicos pode haver uma amnésia parcial e controlada, mas isso é sempre comunicado previamente e faz parte do processo terapêutico, nunca é algo que acontece sem seu conhecimento ou consentimento.</p>
+          <p>É um outro mito. Isso só vai acontecer se você, por algum motivo quiser que aconteça o que, na Hipnose Médica, geralmente não faz sentido. Entenda que para uma sugestão ser aceita é preciso que você esteja totalmente de acordo com ela e permita que aconteça. Assim, o que pretendemos em geral na hipnoterapia é que a pessoa se lembre de absolutamente tudo que ocorre na sessão e possa usar dessas informações no dia a dia para o seu fortalecimento e crescimento.</p>
         </div>
       </div>
 
@@ -1825,7 +1809,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Isso é impossível. O estado hipnótico é transitório por natureza — assim como você naturalmente "sai" de um devaneio ou de uma leitura absorta, você naturalmente retorna ao estado de consciência ordinária. Mesmo que o terapeuta parasse de conduzir a sessão, você acordaria naturalmente após alguns minutos.</p>
+          <p>A resposta aqui é simples: voltar de onde, já que você não vai para lugar nenhum? Este mito surge do fato de que a hipnose é muitas vezes tão gostosa e relaxante que a pessoa simplesmente quer continuar mais um pouco aproveitando e, se assim quiser, pode não dar ouvidos ao hipnotista. Isto é mais uma prova que ela está totalmente consciente. É algo tipo: "me deixa quieto aqui aproveitando mais um pouco". O Hipnotista experiente sabe muito bem a maneira correta de lidar com situações deste tipo. Mas não se esqueça: não existe qualquer risco de você estar em hipnose sem você querer – na hora que você quiser você interrompe o processo.</p>
         </div>
       </div>
 
@@ -1835,7 +1819,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>A hipnose pode ser usada por qualquer pessoa que apresente capacidade cognitiva preservada e desejo genuíno de ser hipnotizada. Crianças acima de 7-8 anos respondem muito bem. Pessoas com psicoses ativas, epilepsia não controlada ou transtornos graves de personalidade podem ter contraindicações — por isso a avaliação médica prévia é fundamental para determinar a melhor abordagem para cada caso.</p>
+          <p>Para qualquer pessoa capaz de se comunicar com uma outra. Assim, hipnose pode ser usada em crianças, idosos ou mesmo pessoas com necessidades especiais que não comprometam a comunicação. Particularmente eu trato apenas adultos e idosos, mas existem profissionais especializados em hipnoterapia infantil.</p>
         </div>
       </div>
 
@@ -1850,8 +1834,7 @@ footer {
   <div class="container">
     <span class="cta-line"></span>
     <div class="fade-up">
-      <h2>Você está a um clique<br>da sua transformação</h2>
-      <p>dê esse primeiro passo.</p>
+      <h2>Você está a um clique da sua transformação, dê esse primeiro passo.</h2>
       <a href="https://wa.me/5565996491721?text=Olá%2C%20gostaria%20de%20agendar%20uma%20avaliação." target="_blank" class="btn-primary" style="font-size:15px;padding:20px 44px;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Agende a sua avaliação
