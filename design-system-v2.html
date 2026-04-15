@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System v2 — Dr. Alberto Bicudo · Naval Light</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ══════════════════════════════════════════
+       DESIGN TOKENS — v2 NAVAL LIGHT
+    ══════════════════════════════════════════ */
+    :root {
+      /* ── COLOR ── */
+      --bg:         #F4F2ED;
+      --bg2:        #EBE8E2;
+      --surface:    #FFFFFF;
+      --surface2:   #D8DEE3;
+      --navy:       #0E2A3C;
+      --navy-h:     #163E59;
+      --navy-dim:   rgba(14,42,60,.07);
+      --steel:      #4F7C99;
+      --steel-dim:  rgba(79,124,153,.10);
+      --gold:       #BFA14A;
+      --gold-dim:   rgba(191,161,74,.12);
+      --text:       #0E2A3C;
+      --muted:      #5A6A75;
+      --subtle:     #8B9EB0;
+      --div:        #D8DEE3;
+      --div2:       #C6CDD4;
+
+      /* ── SPACING SCALE (4px base) ── */
+      --s1:  4px;
+      --s2:  8px;
+      --s3:  12px;
+      --s4:  16px;
+      --s5:  20px;
+      --s6:  24px;
+      --s7:  32px;
+      --s8:  40px;
+      --s9:  48px;
+      --s10: 56px;
+      --s11: 64px;
+      --s12: 80px;
+      --s13: 96px;
+      --s14: 120px;
+
+      /* ── RADIUS ── */
+      --r0: 0px;
+
+      /* ── TRANSITIONS ── */
+      --t-fast:   .18s cubic-bezier(.22,.61,.36,1);
+      --t-mid:    .28s cubic-bezier(.22,.61,.36,1);
+      --t-slow:   .5s  cubic-bezier(.22,.61,.36,1);
+      --t-entry:  .75s cubic-bezier(.22,.61,.36,1);
+
+      /* ── SHADOWS ── */
+      --shadow-card:  0 2px 24px rgba(14,42,60,.08);
+      --shadow-float: 0 8px 40px rgba(14,42,60,.14);
+    }
+
+    /* ══════════════════════════════════════════
+       BASE
+    ══════════════════════════════════════════ */
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ══════════════════════════════════════════
+       DS NAV (sticky)
+    ══════════════════════════════════════════ */
+    .ds-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 52px;
+    }
+
+    .ds-nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .06em;
+      margin-right: 24px;
+      white-space: nowrap;
+    }
+    .ds-nav-logo span { color: var(--gold); }
+
+    .ds-nav a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      padding: 0 14px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color var(--t-fast), border-color var(--t-fast);
+    }
+    .ds-nav a:hover { color: rgba(255,255,255,.9); border-bottom-color: var(--gold); }
+
+    .ds-badge-v2 {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(191,161,74,.12);
+      border: 1px solid rgba(191,161,74,.25);
+      padding: 5px 12px;
+    }
+
+    /* ══════════════════════════════════════════
+       LAYOUT HELPERS
+    ══════════════════════════════════════════ */
+    .ds-section {
+      padding: var(--s14) 0;
+      border-bottom: 1px solid var(--div);
+    }
+
+    .ds-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .ds-section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: var(--s7);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid var(--div);
+    }
+
+    .ds-section-title span {
+      color: var(--gold);
+      margin-right: 8px;
+    }
+
+    .ds-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); }
+    .ds-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s6); }
+    .ds-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--s5); }
+    .ds-grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: var(--s5); }
+    .ds-flex   { display: flex; align-items: flex-start; gap: var(--s6); flex-wrap: wrap; }
+
+    .ds-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-top: var(--s3);
+    }
+
+    .ds-value {
+      font-size: 11px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════════════
+       HERO HEADER
+    ══════════════════════════════════════════ */
+    .ds-hero {
+      background: var(--navy);
+      padding: 96px 48px 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .ds-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(79,124,153,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .ds-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 200px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(191,161,74,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .ds-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .ds-hero-badge::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .ds-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--bg);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .ds-hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .ds-hero-sub {
+      font-size: 14px;
+      color: rgba(244,242,237,.5);
+      max-width: 560px;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .ds-hero-meta {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      position: relative;
+    }
+
+    .ds-hero-meta-item span:first-child {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.3);
+      display: block;
+    }
+
+    .ds-hero-meta-item span:last-child {
+      font-size: 13px;
+      color: rgba(244,242,237,.7);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ══════════════════════════════════════════
+       1. COLORS
+    ══════════════════════════════════════════ */
+    .color-swatch {
+      position: relative;
+    }
+
+    .swatch-block {
+      height: 96px;
+      border: 1px solid var(--div);
+    }
+
+    .swatch-block.border-show { border: 1px solid var(--div2); }
+
+    .swatch-label { margin-top: var(--s3); }
+
+    .swatch-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .swatch-hex {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+      margin-top: 2px;
+    }
+
+    .swatch-desc {
+      font-size: 10px;
+      color: var(--subtle);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .swatch-token {
+      font-size: 10px;
+      color: var(--steel);
+      font-family: monospace;
+      margin-top: 4px;
+    }
+
+    /* Color section variants */
+    .color-group-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: var(--s5);
+      padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--div);
+    }
+
+    /* ══════════════════════════════════════════
+       2. TYPOGRAPHY
+    ══════════════════════════════════════════ */
+    .type-sample {
+      padding: var(--s7) 0;
+      border-bottom: 1px solid var(--div);
+      display: flex;
+      align-items: baseline;
+      gap: var(--s9);
+    }
+
+    .type-sample:last-child { border-bottom: none; }
+
+    .type-meta {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .type-meta-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    .type-meta-spec {
+      font-size: 11px;
+      color: var(--subtle);
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    .type-meta-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--steel);
+      margin-top: 6px;
+    }
+
+    /* ══════════════════════════════════════════
+       3. SPACING
+    ══════════════════════════════════════════ */
+    .spacing-item {
+      display: flex;
+      align-items: center;
+      gap: var(--s5);
+      padding: var(--s4) 0;
+      border-bottom: 1px solid var(--div);
+    }
+
+    .spacing-bar-wrap {
+      width: 220px;
+      flex-shrink: 0;
+    }
+
+    .spacing-bar {
+      background: var(--navy-dim);
+      border-left: 2px solid var(--navy);
+      height: 20px;
+    }
+
+    .spacing-meta { font-size: 12px; color: var(--muted); }
+    .spacing-token { font-size: 11px; font-family: monospace; color: var(--steel); margin-top: 2px; }
+    .spacing-px { font-size: 12px; color: var(--subtle); min-width: 36px; }
+
+    /* ══════════════════════════════════════════
+       4. BUTTONS
+    ══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 14px 28px;
+      cursor: pointer;
+      border: none;
+      transition: background var(--t-mid), color var(--t-mid), border-color var(--t-mid), box-shadow var(--t-mid);
+      position: relative;
+      text-decoration: none;
+    }
+
+    /* Primary — Navy solid */
+    .btn-primary {
+      background: var(--navy);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: var(--navy-h); }
+
+    /* Secondary — Steel outline */
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--navy);
+    }
+    .btn-secondary:hover { background: var(--navy); color: var(--bg); }
+
+    /* Tertiary — Gold solid */
+    .btn-tertiary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .btn-tertiary:hover { background: #CDB355; }
+
+    /* Ghost — subtle fill */
+    .btn-ghost {
+      background: var(--navy-dim);
+      color: var(--navy);
+    }
+    .btn-ghost:hover { background: rgba(14,42,60,.14); }
+
+    /* Text link */
+    .btn-text {
+      background: transparent;
+      color: var(--navy);
+      padding: 14px 0;
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--div2);
+    }
+    .btn-text:hover { border-bottom-color: var(--navy); }
+
+    /* Small */
+    .btn-sm { padding: 9px 18px; font-size: 12px; }
+
+    /* Large */
+    .btn-lg { padding: 18px 40px; font-size: 15px; }
+
+    /* Disabled */
+    .btn-disabled {
+      background: var(--div);
+      color: var(--subtle);
+      cursor: not-allowed;
+    }
+
+    /* ══════════════════════════════════════════
+       5. CARDS
+    ══════════════════════════════════════════ */
+
+    /* Base card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--div);
+      padding: var(--s7) var(--s7);
+      transition: border-color var(--t-mid), box-shadow var(--t-mid);
+    }
+    .card:hover {
+      border-color: var(--navy);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Surface2 card */
+    .card-surface2 {
+      background: var(--surface2);
+      border: 1px solid var(--div);
+      padding: var(--s7);
+      transition: border-color var(--t-mid);
+    }
+    .card-surface2:hover { border-color: var(--steel); }
+
+    /* Feature card (left gold border) */
+    .card-feature {
+      background: var(--surface);
+      border: 1px solid var(--div);
+      border-left: 3px solid var(--gold);
+      padding: var(--s7);
+      transition: border-color var(--t-mid), background var(--t-mid);
+    }
+    .card-feature:hover { background: var(--bg2); border-color: var(--gold); border-left-color: var(--gold); }
+
+    /* Stat card */
+    .card-stat {
+      background: var(--navy);
+      padding: var(--s7) var(--s8);
+      text-align: center;
+    }
+
+    .card-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .card-stat-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.5);
+      margin-top: 8px;
+    }
+
+    /* Testimonial card */
+    .card-testimonial {
+      background: var(--surface);
+      border: 1px solid var(--div);
+      border-left: 2px solid var(--steel);
+      padding: var(--s7);
+    }
+
+    /* Condition item */
+    .card-condition {
+      background: var(--surface);
+      border: 1px solid var(--div);
+      padding: var(--s7) var(--s6);
+      transition: border-color var(--t-mid), background var(--t-mid);
+    }
+    .card-condition:hover { border-color: var(--navy); background: var(--bg2); }
+
+    /* ══════════════════════════════════════════
+       6. FORMS
+    ══════════════════════════════════════════ */
+    .form-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--div);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    }
+
+    .form-input::placeholder { color: var(--subtle); }
+    .form-input:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px var(--navy-dim);
+    }
+
+    .form-input.error { border-color: #C0392B; }
+    .form-input.success { border-color: #27AE60; }
+
+    .form-help {
+      font-size: 12px;
+      color: var(--subtle);
+      margin-top: 6px;
+    }
+
+    /* ══════════════════════════════════════════
+       7. BADGES
+    ══════════════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    .badge-navy {
+      background: var(--navy-dim);
+      color: var(--navy);
+      border: 1px solid rgba(14,42,60,.15);
+    }
+
+    .badge-steel {
+      background: var(--steel-dim);
+      color: var(--steel);
+      border: 1px solid rgba(79,124,153,.2);
+    }
+
+    .badge-gold {
+      background: var(--gold-dim);
+      color: #8B7130;
+      border: 1px solid rgba(191,161,74,.25);
+    }
+
+    .badge-surface {
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--div);
+    }
+
+    .badge-dark {
+      background: var(--navy);
+      color: var(--bg);
+    }
+
+    /* ══════════════════════════════════════════
+       8. DECORATIVE
+    ══════════════════════════════════════════ */
+    .eyebrow-sample {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .divider-bronze {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: .5;
+    }
+
+    .divider-full {
+      height: 1px;
+      background: var(--div);
+    }
+
+    .line-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .line-accent::before,
+    .line-accent::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+      opacity: .4;
+      width: 32px;
+    }
+
+    .watermark-sample {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      font-weight: 300;
+      color: var(--navy);
+      opacity: .04;
+      line-height: 1;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .diagonal-clip {
+      background: linear-gradient(140deg, var(--navy) 0%, var(--navy-h) 100%);
+      clip-path: polygon(6% 0, 100% 0, 100% 100%, 0% 100%);
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .diagonal-clip-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: rgba(244,242,237,.18);
+      letter-spacing: .12em;
+      text-align: center;
+      user-select: none;
+    }
+
+    .diagonal-clip-float {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 12px 16px;
+    }
+
+    .diagonal-clip-float span:first-child {
+      font-size: 26px;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .diagonal-clip-float span:last-child {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.45);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* credential strip */
+    .cred-strip {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+      padding: 16px 0;
+    }
+
+    .cred-strip-inner {
+      display: flex;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+
+    .cred-strip-item {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 0 28px;
+    }
+
+    .cred-strip-item span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.35);
+    }
+
+    .cred-dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .5;
+      margin-left: 28px;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ══════════════════════════════════════════
+       9. MOTION
+    ══════════════════════════════════════════ */
+    .motion-demo {
+      background: var(--bg2);
+      border: 1px solid var(--div);
+      padding: var(--s7);
+    }
+
+    .motion-bar {
+      height: 3px;
+      background: var(--navy);
+      transform-origin: left;
+      margin-bottom: var(--s5);
+    }
+
+    .motion-bar:hover { transform: scaleX(1.2); }
+
+    .motion-chip {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--div);
+      padding: 10px 20px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .28s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .motion-chip:hover {
+      background: var(--navy);
+      color: var(--bg);
+      border-color: var(--navy);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14,42,60,.15);
+    }
+
+    /* WhatsApp float preview */
+    .wa-float-preview {
+      position: relative;
+      height: 80px;
+    }
+
+    .wa-btn-preview {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wa-label-preview {
+      background: var(--surface);
+      border: 1px solid var(--div);
+      padding: 9px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .04em;
+      box-shadow: var(--shadow-card);
+    }
+
+    .wa-circle {
+      width: 52px;
+      height: 52px;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .wa-ring-preview {
+      position: absolute;
+      inset: -5px;
+      border: 2px solid #25D366;
+      border-radius: 50%;
+      opacity: 0;
+      animation: waRing 2.5s ease-out infinite;
+    }
+
+    @keyframes waRing {
+      0%   { opacity: .5; transform: scale(1); }
+      100% { opacity: 0;  transform: scale(1.5); }
+    }
+
+    /* ══════════════════════════════════════════
+       10. DARK INVERSION (navy panels)
+    ══════════════════════════════════════════ */
+    .dark-panel {
+      background: var(--navy);
+      padding: var(--s8);
+    }
+
+    .dark-panel-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.3);
+      margin-bottom: var(--s6);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    /* ══════════════════════════════════════════
+       PREVIEW SECTION — full page mockup
+    ══════════════════════════════════════════ */
+    .preview-hero {
+      background: var(--navy);
+      padding: 64px 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(79,124,153,.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .preview-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+      position: relative;
+    }
+
+    .preview-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--bg);
+      line-height: 1.05;
+      max-width: 640px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .preview-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(244,242,237,.55);
+      display: block;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .preview-sub {
+      font-size: 14px;
+      color: rgba(244,242,237,.45);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .preview-authority {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(244,242,237,.25);
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      position: relative;
+    }
+
+    .preview-card-strip {
+      background: var(--bg2);
+      border-top: 1px solid var(--div);
+      padding: 28px 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background-color: var(--div);
+      border-bottom: 1px solid var(--div);
+    }
+
+    .preview-stat {
+      background: var(--surface);
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .preview-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .preview-stat-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-top: 6px;
+    }
+
+    .preview-section-light {
+      background: var(--bg);
+      padding: 48px;
+      border-bottom: 1px solid var(--div);
+    }
+
+    .preview-section-bg2 {
+      background: var(--bg2);
+      padding: 48px;
+      border-bottom: 1px solid var(--div);
+    }
+
+    /* ══════════════════════════════════════════
+       MISC UTILS
+    ══════════════════════════════════════════ */
+    .mb-4  { margin-bottom: var(--s4); }
+    .mb-5  { margin-bottom: var(--s5); }
+    .mb-6  { margin-bottom: var(--s6); }
+    .mb-7  { margin-bottom: var(--s7); }
+    .mb-8  { margin-bottom: var(--s8); }
+    .mb-9  { margin-bottom: var(--s9); }
+    .mb-10 { margin-bottom: var(--s10); }
+
+    .mt-6  { margin-top: var(--s6); }
+    .mt-7  { margin-top: var(--s7); }
+    .mt-8  { margin-top: var(--s8); }
+
+    code {
+      font-family: monospace;
+      font-size: 11px;
+      background: var(--navy-dim);
+      color: var(--navy);
+      padding: 2px 7px;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     DS NAV
+══════════════════════════════════ -->
+<nav class="ds-nav">
+  <span class="ds-nav-logo">Dr. Alberto <span>Bicudo</span></span>
+  <a href="#cores">Cores</a>
+  <a href="#tipografia">Tipografia</a>
+  <a href="#espacamento">Espaçamento</a>
+  <a href="#botoes">Botões</a>
+  <a href="#cards">Cards</a>
+  <a href="#formularios">Forms</a>
+  <a href="#badges">Badges</a>
+  <a href="#decorativos">Decorativos</a>
+  <a href="#motion">Motion</a>
+  <a href="#preview">Preview</a>
+  <span class="ds-badge-v2">v2 · Naval Light</span>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<div class="ds-hero">
+  <div class="ds-container">
+    <div class="ds-hero-badge">Design System</div>
+    <h1 class="ds-hero h1">Dr. Alberto <em>Bicudo</em><br>Design System <em>v2</em></h1>
+    <p class="ds-hero-sub">Identidade visual naval — fundo claro, navy escuro, aço azul e ouro. Mesma estrutura do DS v1, nova paleta baseada na identidade visual do cliente.</p>
+    <div class="ds-hero-meta">
+      <div class="ds-hero-meta-item">
+        <span>Versão</span>
+        <span>2.0 · Naval Light</span>
+      </div>
+      <div class="ds-hero-meta-item">
+        <span>Tipografia</span>
+        <span>Cormorant Garamond + DM Sans</span>
+      </div>
+      <div class="ds-hero-meta-item">
+        <span>Tema</span>
+        <span>Light · Cream #F4F2ED</span>
+      </div>
+      <div class="ds-hero-meta-item">
+        <span>Border-radius</span>
+        <span>0 — tudo sharp</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     1. CORES
+══════════════════════════════════ -->
+<section class="ds-section" id="cores">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>01</span>Paleta de Cores</p>
+
+    <!-- Backgrounds -->
+    <p class="color-group-title mb-5">Backgrounds</p>
+    <div class="ds-grid-4 mb-10">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#F4F2ED;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">BG Principal</div>
+          <div class="swatch-hex">#F4F2ED</div>
+          <div class="swatch-token">--bg</div>
+          <div class="swatch-desc">Creme quente · fundo dominante</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#EBE8E2;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">BG Secundário</div>
+          <div class="swatch-hex">#EBE8E2</div>
+          <div class="swatch-token">--bg2</div>
+          <div class="swatch-desc">Seções alternadas</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block border-show" style="background:#FFFFFF;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Surface</div>
+          <div class="swatch-hex">#FFFFFF</div>
+          <div class="swatch-token">--surface</div>
+          <div class="swatch-desc">Cards e elementos elevados</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#D8DEE3;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Surface 2</div>
+          <div class="swatch-hex">#D8DEE3</div>
+          <div class="swatch-token">--surface2</div>
+          <div class="swatch-desc">Cards secundários, tags</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primárias -->
+    <p class="color-group-title mb-5">Cores Primárias</p>
+    <div class="ds-grid-4 mb-10">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#0E2A3C;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Navy Principal</div>
+          <div class="swatch-hex">#0E2A3C</div>
+          <div class="swatch-token">--navy</div>
+          <div class="swatch-desc">Cor primária · textos, CTAs, nav</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#163E59;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Navy Hover</div>
+          <div class="swatch-hex">#163E59</div>
+          <div class="swatch-token">--navy-h</div>
+          <div class="swatch-desc">Estado hover do navy</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#4F7C99;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Steel Blue</div>
+          <div class="swatch-hex">#4F7C99</div>
+          <div class="swatch-token">--steel</div>
+          <div class="swatch-desc">Acento secundário · links, bordas</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:rgba(14,42,60,.07);border:1px solid #D8DEE3;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Navy Dim</div>
+          <div class="swatch-hex">rgba(14,42,60,.07)</div>
+          <div class="swatch-token">--navy-dim</div>
+          <div class="swatch-desc">Fills sutis, hover ghost</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acento -->
+    <p class="color-group-title mb-5">Acento Dourado</p>
+    <div class="ds-grid-4 mb-10">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#BFA14A;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Gold</div>
+          <div class="swatch-hex">#BFA14A</div>
+          <div class="swatch-token">--gold</div>
+          <div class="swatch-desc">Eyebrows, destaques, ícones</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#CDB355;border:1px solid #D8DEE3;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Gold Hover</div>
+          <div class="swatch-hex">#CDB355</div>
+          <div class="swatch-token">--gold-h</div>
+          <div class="swatch-desc">Hover do gold</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:rgba(191,161,74,.12);border:1px solid #D8DEE3;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Gold Dim</div>
+          <div class="swatch-hex">rgba(191,161,74,.12)</div>
+          <div class="swatch-token">--gold-dim</div>
+          <div class="swatch-desc">Fills de badge e highlight</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#5A6A75;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Steel Gray</div>
+          <div class="swatch-hex">#5A6A75</div>
+          <div class="swatch-token">--muted</div>
+          <div class="swatch-desc">Texto secundário</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Texto e Divisores -->
+    <p class="color-group-title mb-5">Texto &amp; Divisores</p>
+    <div class="ds-grid-5">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#0E2A3C;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Texto</div>
+          <div class="swatch-hex">#0E2A3C</div>
+          <div class="swatch-token">--text</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#5A6A75;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Muted</div>
+          <div class="swatch-hex">#5A6A75</div>
+          <div class="swatch-token">--muted</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#8B9EB0;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Subtle</div>
+          <div class="swatch-hex">#8B9EB0</div>
+          <div class="swatch-token">--subtle</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#D8DEE3;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Divisor</div>
+          <div class="swatch-hex">#D8DEE3</div>
+          <div class="swatch-token">--div</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#C6CDD4;"></div>
+        <div class="swatch-label">
+          <div class="swatch-name">Divisor 2</div>
+          <div class="swatch-hex">#C6CDD4</div>
+          <div class="swatch-token">--div2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     2. TIPOGRAFIA
+══════════════════════════════════ -->
+<section class="ds-section" id="tipografia">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>02</span>Tipografia</p>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Display XL</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 · 80px · lh 1.02</div>
+        <div class="type-meta-token">--font-display-xl</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:300;line-height:1.02;color:var(--text);">Hipnose Médica</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Display L</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 · 60px · lh 1.05</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;line-height:1.05;color:var(--text);">Transformação</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">H1 Hero</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 · 48px · lh 1.06</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1.06;color:var(--text);">Uma das referências mais<br>importantes da Hipnose Médica</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">H1 Italic</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 italic · 48px</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;font-style:italic;line-height:1.06;color:var(--gold);">Você está a um clique<br>da sua transformação</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">H2</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 · 40px · lh 1.1</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1.1;color:var(--text);">A hipnose age na raiz do problema</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">H3</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>600 · 28px · lh 1.15</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1.15;color:var(--text);">Quem sou · Dr. Alberto Bicudo-Salomão</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Eyebrow</div>
+        <div class="type-meta-spec">DM Sans · 500<br>11px · ls .16em · UC</div>
+      </div>
+      <span class="eyebrow-sample">Hipnose Médica Baseada em Evidências</span>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Body L</div>
+        <div class="type-meta-spec">DM Sans · 400<br>17px · lh 1.75</div>
+      </div>
+      <div style="font-size:17px;line-height:1.75;color:var(--muted);max-width:600px;">Tratar mente e corpo é a chave para um verdadeiro processo de autotransformação. A Hipnose Médica é um tratamento personalizado e focado no seu objetivo.</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Body M</div>
+        <div class="type-meta-spec">DM Sans · 400<br>15px · lh 1.7</div>
+      </div>
+      <div style="font-size:15px;line-height:1.7;color:var(--muted);max-width:560px;">A hipnoterapia é um tratamento baseado em toda a sua bagagem de vida (seu passado e seu presente), e direcionado para o futuro.</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Body S</div>
+        <div class="type-meta-spec">DM Sans · 400<br>13px · lh 1.65</div>
+      </div>
+      <div style="font-size:13px;line-height:1.65;color:var(--muted);">Professor do Curso de Pós-graduação em Hipnoterapia Profissional da Omni Brasil. CRM-MT 3841.</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Label / Caption</div>
+        <div class="type-meta-spec">DM Sans · 500<br>10px · ls .14em · UC</div>
+      </div>
+      <span style="font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);">CRM MT 3841 · RQE 2347 · RQE 1356</span>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-name">Quote / Pull</div>
+        <div class="type-meta-spec">Cormorant Garamond<br>300 italic · 24px</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;font-style:italic;line-height:1.5;color:var(--text);border-left:2px solid var(--gold);padding-left:20px;max-width:520px;">"Para muitos esta é uma experiência não só terapêutica como transformadora."</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     3. ESPAÇAMENTO
+══════════════════════════════════ -->
+<section class="ds-section" id="espacamento">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>03</span>Espaçamento — Base 4px</p>
+
+    <div style="max-width:640px;">
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px;"></div></div>
+        <div class="spacing-px">4px</div>
+        <div><div class="spacing-token">--s1</div><div class="spacing-meta">Micro · gaps dentro de badges</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div>
+        <div class="spacing-px">8px</div>
+        <div><div class="spacing-token">--s2</div><div class="spacing-meta">Gap ícone + label</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px;"></div></div>
+        <div class="spacing-px">12px</div>
+        <div><div class="spacing-token">--s3</div><div class="spacing-meta">Padding interno pequeno</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div>
+        <div class="spacing-px">16px</div>
+        <div><div class="spacing-token">--s4</div><div class="spacing-meta">Padding padrão de input</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px;"></div></div>
+        <div class="spacing-px">20px</div>
+        <div><div class="spacing-token">--s5</div><div class="spacing-meta">Gap entre badges / itens</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px;"></div></div>
+        <div class="spacing-px">24px</div>
+        <div><div class="spacing-token">--s6</div><div class="spacing-meta">Gap de grid compacto</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px;"></div></div>
+        <div class="spacing-px">32px</div>
+        <div><div class="spacing-token">--s7</div><div class="spacing-meta">Padding interno de card</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px;"></div></div>
+        <div class="spacing-px">40px</div>
+        <div><div class="spacing-token">--s8</div><div class="spacing-meta">Gap entre colunas mobile</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div>
+        <div class="spacing-px">48px</div>
+        <div><div class="spacing-token">--s9</div><div class="spacing-meta">Gap entre seções compactas</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:56px;"></div></div>
+        <div class="spacing-px">56px</div>
+        <div><div class="spacing-token">--s10</div><div class="spacing-meta">Gap entre blocos de conteúdo</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px;"></div></div>
+        <div class="spacing-px">64px</div>
+        <div><div class="spacing-token">--s11</div><div class="spacing-meta">Padding top de section-header</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px;"></div></div>
+        <div class="spacing-px">80px</div>
+        <div><div class="spacing-token">--s12</div><div class="spacing-meta">Padding de seção mobile</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:96px;"></div></div>
+        <div class="spacing-px">96px</div>
+        <div><div class="spacing-token">--s13</div><div class="spacing-meta">Hero padding top mobile</div></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:120px;"></div></div>
+        <div class="spacing-px">120px</div>
+        <div><div class="spacing-token">--s14</div><div class="spacing-meta">Padding de seção desktop</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     4. BOTÕES
+══════════════════════════════════ -->
+<section class="ds-section" id="botoes">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>04</span>Botões</p>
+
+    <div class="ds-grid-2 mb-9">
+      <!-- Column 1 -->
+      <div>
+        <p class="color-group-title mb-6">Variantes</p>
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+          <button class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agende a sua avaliação
+          </button>
+          <button class="btn btn-secondary">Saiba mais sobre o método</button>
+          <button class="btn btn-tertiary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Agende sua avaliação
+          </button>
+          <button class="btn btn-ghost">Como funciona</button>
+          <button class="btn btn-text">Agende sua avaliação →</button>
+        </div>
+      </div>
+
+      <!-- Column 2 — dark context -->
+      <div>
+        <p class="color-group-title mb-6">Em contexto navy escuro</p>
+        <div class="dark-panel">
+          <div class="dark-panel-title">Sobre fundo --navy</div>
+          <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+            <button class="btn" style="background:var(--gold);color:var(--navy);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Agende a sua avaliação
+            </button>
+            <button class="btn" style="background:transparent;border:1px solid rgba(244,242,237,.2);color:rgba(244,242,237,.85);">Ver como funciona</button>
+            <button class="btn" style="background:transparent;color:var(--gold);border:none;padding-left:0;">Agende sua avaliação →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tamanhos -->
+    <p class="color-group-title mb-6">Tamanhos</p>
+    <div class="ds-flex">
+      <button class="btn btn-primary btn-sm">Pequeno</button>
+      <button class="btn btn-primary">Padrão</button>
+      <button class="btn btn-primary btn-lg">Grande</button>
+      <button class="btn btn-disabled">Desabilitado</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     5. CARDS
+══════════════════════════════════ -->
+<section class="ds-section" id="cards">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>05</span>Cards</p>
+
+    <div class="ds-grid-3 mb-9">
+
+      <div>
+        <p class="color-group-title mb-5">Card Padrão (surface)</p>
+        <div class="card">
+          <span class="eyebrow-sample mb-4" style="display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Hipnose Médica</span>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--text);margin-bottom:10px;">Resultado Rápido</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;">Com a Hipnoterapia é possível atingir resultados que muitas vezes poderiam levar anos em terapias convencionais.</p>
+        </div>
+        <p class="ds-label">border navy on hover · shadow-card</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Card Surface 2</p>
+        <div class="card-surface2">
+          <span style="display:block;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:10px;">Indicação</span>
+          <div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px;">Transtornos de Ansiedade</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;">TAG, transtorno de pânico, agorafobia, ansiedade social, fobias específicas, etc.</p>
+        </div>
+        <p class="ds-label">border steel on hover</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Card Feature (border-left gold)</p>
+        <div class="card-feature">
+          <div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px;">Baseado em Evidências</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;">Ferramenta usada na Medicina há mais de 150 anos, com ampla base científica.</p>
+        </div>
+        <p class="ds-label">border-left: 3px solid --gold</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Stat Card (dark)</p>
+        <div class="card-stat">
+          <div class="card-stat-num">542</div>
+          <div class="card-stat-label">Citações Científicas</div>
+        </div>
+        <p class="ds-label">fundo --navy · número --gold</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Testimonial (border-left steel)</p>
+        <div class="card-testimonial">
+          <div style="display:flex;gap:3px;margin-bottom:12px;">
+            <span style="color:var(--gold);">★</span><span style="color:var(--gold);">★</span><span style="color:var(--gold);">★</span><span style="color:var(--gold);">★</span><span style="color:var(--gold);">★</span>
+          </div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--text);line-height:1.55;margin-bottom:16px;">"Uma experiência não só terapêutica como transformadora."</p>
+          <span style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle);">Paciente — Ansiedade</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Condition Item</p>
+        <div class="card-condition">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--navy);margin-bottom:14px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px;">Estresse e Trauma</div>
+          <p style="font-size:12px;color:var(--muted);line-height:1.6;">Estresse agudo ou crônico, PTSD, preparo pré e pós-operatório.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     6. FORMULÁRIOS
+══════════════════════════════════ -->
+<section class="ds-section" id="formularios">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>06</span>Formulários</p>
+    <div class="ds-grid-2">
+      <div>
+        <div class="mb-7">
+          <label class="form-label">Nome completo</label>
+          <input type="text" class="form-input" placeholder="Dr. Alberto Bicudo">
+        </div>
+        <div class="mb-7">
+          <label class="form-label">E-mail</label>
+          <input type="text" class="form-input error" value="email-inválido">
+          <p class="form-help" style="color:#C0392B;">Por favor, insira um e-mail válido.</p>
+        </div>
+        <div>
+          <label class="form-label">WhatsApp</label>
+          <input type="text" class="form-input success" value="+55 65 99649-1721">
+          <p class="form-help" style="color:#27AE60;">Número confirmado.</p>
+        </div>
+      </div>
+      <div>
+        <div class="mb-7">
+          <label class="form-label">Mensagem</label>
+          <textarea class="form-input" rows="5" placeholder="Olá, gostaria de agendar uma avaliação..." style="resize:vertical;"></textarea>
+        </div>
+        <div>
+          <label class="form-label">Assunto</label>
+          <select class="form-input" style="appearance:none;">
+            <option>Agendar avaliação</option>
+            <option>Dúvidas sobre hipnoterapia</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     7. BADGES
+══════════════════════════════════ -->
+<section class="ds-section" id="badges">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>07</span>Badges &amp; Tags</p>
+
+    <div class="ds-flex mb-7">
+      <span class="badge badge-navy">CRM MT 3841</span>
+      <span class="badge badge-navy">RQE 2347</span>
+      <span class="badge badge-steel">Hipniatra</span>
+      <span class="badge badge-steel">Doutorado UFMT</span>
+      <span class="badge badge-gold">28+ Publicações</span>
+      <span class="badge badge-gold">542 Citações</span>
+      <span class="badge badge-surface">OMNI Brasil</span>
+      <span class="badge badge-dark">CTA Badge</span>
+    </div>
+
+    <p class="ds-label mb-5">Variantes de tamanho</p>
+    <div class="ds-flex">
+      <span class="badge badge-navy" style="font-size:9px;padding:4px 10px;">XS · Micro</span>
+      <span class="badge badge-navy">S · Padrão</span>
+      <span class="badge badge-navy" style="font-size:12px;padding:9px 16px;letter-spacing:.1em;">M · Destaque</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     8. DECORATIVOS
+══════════════════════════════════ -->
+<section class="ds-section" id="decorativos">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>08</span>Elementos Decorativos</p>
+
+    <div class="ds-grid-2 mb-9">
+      <div>
+        <p class="color-group-title mb-5">Eyebrow</p>
+        <span class="eyebrow-sample">Hipnose Médica Baseada em Evidências</span>
+        <p class="ds-value mt-6">DM Sans 500 · 11px · ls .16em · uppercase · --gold</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Linha decorativa gold</p>
+        <div style="margin-bottom:24px;"><div class="divider-bronze"></div></div>
+        <div class="ds-flex">
+          <span class="line-accent">Por dentro do método</span>
+        </div>
+        <p class="ds-value mt-6">gradient linear transparente→gold→transparente, opacity .5</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Divisores</p>
+        <div style="margin-bottom:16px;"><div class="divider-full"></div></div>
+        <div style="margin-bottom:16px;"><div class="divider-bronze"></div></div>
+        <div style="height:1px;background:var(--div2);"></div>
+        <p class="ds-value mt-6">--div · --gold gradient · --div2</p>
+      </div>
+
+      <div>
+        <p class="color-group-title mb-5">Watermark (texto phantom)</p>
+        <div style="overflow:hidden;height:100px;background:var(--bg2);display:flex;align-items:center;padding:0 20px;">
+          <div class="watermark-sample">Dr. Alberto Bicudo</div>
+        </div>
+        <p class="ds-value mt-6">Cormorant 300 · --navy opacity .04</p>
+      </div>
+    </div>
+
+    <!-- Diagonal clip -->
+    <p class="color-group-title mb-5">Coluna diagonal (hero image placeholder)</p>
+    <div class="diagonal-clip mb-5">
+      <span class="diagonal-clip-text">Dr. Alberto Bicudo</span>
+      <div class="diagonal-clip-float">
+        <span>25+</span>
+        <span>Anos de Medicina</span>
+      </div>
+    </div>
+    <p class="ds-value mb-9">clip-path: polygon(6% 0, 100% 0, 100% 100%, 0% 100%) · fundo --navy</p>
+
+    <!-- Credential strip -->
+    <p class="color-group-title mb-5">Credential Strip (scroll infinito)</p>
+    <div class="cred-strip">
+      <div class="cred-strip-inner">
+        <div class="cred-strip-item"><span>ABHM</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>OMNI Brasil</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>UFMT</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Mount Sinai Hospital</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>28+ Publicações</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>CRM MT 3841</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Doutorado UFMT</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Hipniatra</span><span class="cred-dot"></span></div>
+        <!-- duplicate -->
+        <div class="cred-strip-item"><span>ABHM</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>OMNI Brasil</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>UFMT</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Mount Sinai Hospital</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>28+ Publicações</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>CRM MT 3841</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Doutorado UFMT</span><span class="cred-dot"></span></div>
+        <div class="cred-strip-item"><span>Hipniatra</span><span class="cred-dot"></span></div>
+      </div>
+    </div>
+    <p class="ds-value mt-6">Fundo --navy · texto rgba(white,.35) · ponto --gold · animation 22s linear infinite</p>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     9. MOTION
+══════════════════════════════════ -->
+<section class="ds-section" id="motion">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>09</span>Motion &amp; Interações</p>
+
+    <div class="ds-grid-3 mb-9">
+      <div>
+        <p class="color-group-title mb-5">Ease padrão</p>
+        <div class="motion-demo">
+          <code>cubic-bezier(.22,.61,.36,1)</code>
+          <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5;">Ease out com arranque suave. Usada em todas as transições de UI.</p>
+        </div>
+      </div>
+      <div>
+        <p class="color-group-title mb-5">Tempos</p>
+        <div class="motion-demo">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;"><code>--t-fast</code><span style="font-size:12px;color:var(--muted);">.18s — hover, focus</span></div>
+            <div style="display:flex;justify-content:space-between;"><code>--t-mid</code><span style="font-size:12px;color:var(--muted);">.28s — cards, botões</span></div>
+            <div style="display:flex;justify-content:space-between;"><code>--t-slow</code><span style="font-size:12px;color:var(--muted);">.5s — accordions</span></div>
+            <div style="display:flex;justify-content:space-between;"><code>--t-entry</code><span style="font-size:12px;color:var(--muted);">.75s — page load</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="color-group-title mb-5">Hover lift (hover me)</p>
+        <div class="motion-demo">
+          <div class="ds-flex" style="flex-wrap:wrap;gap:8px;">
+            <span class="motion-chip">Resultado Rápido</span>
+            <span class="motion-chip">Foco na Causa</span>
+            <span class="motion-chip">Autoconhecimento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp float -->
+    <p class="color-group-title mb-5">WhatsApp Float Button</p>
+    <div class="motion-demo">
+      <div class="wa-float-preview">
+        <div class="wa-btn-preview">
+          <span class="wa-label-preview">Agendar via WhatsApp</span>
+          <div class="wa-circle">
+            <div class="wa-ring-preview"></div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     10. PREVIEW — MOCKUP DE PÁGINA
+══════════════════════════════════ -->
+<section class="ds-section" id="preview" style="padding-bottom:0;">
+  <div class="ds-container">
+    <p class="ds-section-title"><span>10</span>Preview — Mockup da Landing Page</p>
+  </div>
+
+  <!-- NAV preview -->
+  <div style="background:var(--navy);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:rgba(244,242,237,.9);">Dr. Alberto <span style="color:var(--gold);">Bicudo</span></span>
+    <div style="display:flex;gap:32px;">
+      <span style="font-size:12px;color:rgba(244,242,237,.45);">Sobre</span>
+      <span style="font-size:12px;color:rgba(244,242,237,.45);">Indicações</span>
+      <span style="font-size:12px;color:rgba(244,242,237,.45);">Como Funciona</span>
+      <span style="font-size:12px;color:rgba(244,242,237,.45);">FAQ</span>
+    </div>
+    <button class="btn btn-primary btn-sm">Agendar</button>
+  </div>
+
+  <!-- HERO preview -->
+  <div class="preview-hero">
+    <span class="preview-eyebrow">Hipnose Médica Baseada em Evidências</span>
+    <h1 class="preview-h1">Uma das referências mais importantes da Hipnose Médica brasileira, atendendo em Cuiabá-MT</h1>
+    <span class="preview-name">Dr. Alberto Bicudo-Salomão · CRM-MT 3841</span>
+    <p class="preview-sub">Tratar mente e corpo é a chave para um verdadeiro processo de autotransformação. A Hipnose Médica é um tratamento personalizado e focado no seu objetivo.</p>
+    <button class="btn" style="background:var(--gold);color:var(--navy);font-size:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Agende a sua avaliação
+    </button>
+    <p class="preview-authority">Professor do Curso de Pós-graduação em Hipnoterapia Profissional da Omni Brasil</p>
+  </div>
+
+  <!-- CREDENTIAL STRIP preview -->
+  <div class="cred-strip">
+    <div class="cred-strip-inner">
+      <div class="cred-strip-item"><span>ABHM</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>OMNI Brasil</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>UFMT</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>UNIC</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>Mount Sinai Hospital</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>28+ Publicações</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>CRM MT 3841</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>Hipniatra</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>ABHM</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>OMNI Brasil</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>UFMT</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>UNIC</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>Mount Sinai Hospital</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>28+ Publicações</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>CRM MT 3841</span><span class="cred-dot"></span></div>
+      <div class="cred-strip-item"><span>Hipniatra</span><span class="cred-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- STATS preview -->
+  <div class="preview-card-strip">
+    <div class="preview-stat">
+      <div class="preview-stat-num">25+</div>
+      <div class="preview-stat-label">Anos de Medicina</div>
+    </div>
+    <div class="preview-stat">
+      <div class="preview-stat-num">28+</div>
+      <div class="preview-stat-label">Publicações Científicas</div>
+    </div>
+    <div class="preview-stat" style="background:var(--bg2);">
+      <div class="preview-stat-num">542</div>
+      <div class="preview-stat-label">Citações Científicas</div>
+    </div>
+    <div class="preview-stat" style="background:var(--bg2);">
+      <div class="preview-stat-num">15+</div>
+      <div class="preview-stat-label">Anos em Hipnose</div>
+    </div>
+  </div>
+
+  <!-- INTRO preview -->
+  <div class="preview-section-light">
+    <div style="max-width:640px;">
+      <span style="display:block;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">A premissa da hipnose médica</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--text);line-height:1.1;margin-bottom:20px;">Mente e corpo são partes inseparáveis de um todo</div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.75;">Todos os problemas de ordem física ou psíquica podem ser tratados com auxílio da Hipnose. Isso parte de uma premissa básica: nossa mente e nosso corpo são partes inseparáveis de um todo.</p>
+    </div>
+  </div>
+
+  <!-- CARDS PREVIEW -->
+  <div class="preview-section-bg2">
+    <span style="display:block;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Por que hipnose</span>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--text);line-height:1.1;margin-bottom:32px;">Por que realizar um tratamento com uso da Hipnose?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--div);border:1px solid var(--div);">
+      <div class="card" style="position:relative;overflow:hidden;">
+        <div style="position:absolute;top:12px;right:20px;font-family:'Cormorant Garamond',serif;font-size:100px;font-weight:300;color:var(--navy);opacity:.04;line-height:1;">01</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--text);margin-bottom:10px;">Resultado Rápido</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.65;position:relative;">Com a Hipnoterapia é possível atingir resultados que muitas vezes poderiam levar anos em terapias convencionais.</p>
+      </div>
+      <div class="card" style="position:relative;overflow:hidden;background:var(--bg);">
+        <div style="position:absolute;top:12px;right:20px;font-family:'Cormorant Garamond',serif;font-size:100px;font-weight:300;color:var(--navy);opacity:.04;line-height:1;">02</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--text);margin-bottom:10px;">Foco na Causa</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.65;position:relative;">Muitos tratamentos propiciam apenas o controle de sintomas. Na Hipnoterapia buscamos a origem do problema.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA preview -->
+  <div style="background:var(--navy);padding:80px 48px;text-align:center;border-top:1px solid rgba(255,255,255,.06);">
+    <div style="height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.4;margin-bottom:48px;"></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;font-style:italic;color:var(--gold);line-height:1.1;margin-bottom:40px;">Você está a um clique da sua transformação, dê esse primeiro passo.</div>
+    <button class="btn btn-lg" style="background:var(--gold);color:var(--navy);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Agende a sua avaliação
+    </button>
+    <div style="height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.4;margin-top:48px;"></div>
+  </div>
+
+  <!-- FOOTER preview -->
+  <div style="background:var(--bg2);padding:48px;border-top:1px solid var(--div);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--text);margin-bottom:8px;">Dr. Alberto <span style="color:var(--gold);">Bicudo</span></div>
+        <p style="font-size:12px;color:var(--subtle);max-width:240px;line-height:1.6;">Hipnose Médica Baseada em Evidências. Atendendo em Cuiabá-MT.</p>
+      </div>
+      <div style="font-size:11px;color:var(--subtle);border-top:1px solid var(--div);padding-top:16px;width:100%;display:flex;justify-content:space-between;">
+        <span>© 2025 Dr. Alberto Bicudo-Salomão. Todos os direitos reservados.</span>
+        <span style="font-weight:500;letter-spacing:.08em;text-transform:uppercase;">CRM MT 3841 · RQE 2347 · RQE 1356</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</body>
+</html>
